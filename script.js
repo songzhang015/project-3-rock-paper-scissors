@@ -13,48 +13,73 @@ function getComputerChoice() {
 
 function getHumanChoice() {
     // Prompts for the human's input to be returned. Case-insensitive but no checks.
-    let humanChoice = prompt("Input: 'Rock', 'Paper' or 'Scissors'");
-    return humanChoice;
+    let humanSelection = prompt("Input: 'Rock', 'Paper' or 'Scissors'");
+    return humanSelection.toLowerCase();
 }
 
-function playRound () {
-    /*
-    Define two parameters for playRound: humanChoice and computerChoice.
-    Use these two parameters to take the human and computer choices as arguments.
+function playRound (humanSelection, computerSelection) {
+    if (humanSelection == "rock" && computerSelection == "rock") {
+        console.log("You tied! Rock ties Rock.")
+        return 0;
+    }
+    if (humanSelection == "rock" && computerSelection == "paper") {
+        console.log("You lose! Paper beats Rock.")
+        return -1;
+    }
+    if (humanSelection == "rock" && computerSelection == "scissors") {
+        console.log("You win! Rock beats Scissors.")
+        return 1;
+    }
 
-    Make your function’s humanChoice parameter case-insensitive so that
-    players can input “rock”, “ROCK”, “RocK”, or other variations.
+    if (humanSelection == "paper" && computerSelection == "rock") {
+        console.log("You win! Paper beats Rock.")
+        return 1;
+    }
+    if (humanSelection == "paper" && computerSelection == "paper") {
+        console.log("You tied! Paper ties Paper.")
+        return 0;
+    }
+    if (humanSelection == "paper" && computerSelection == "scissors") {
+        console.log("You lose! Scissors beats Paper.")
+        return -1;
+    }
 
-    Write the code for your playRound function to console.log a string
-    value representing the round winner, such as: “You lose! Paper beats Rock”.
-
-    Increment the humanScore or computerScore variable based on the round winner.
-    */
-
-    
+    if (humanSelection == "scissors" && computerSelection == "rock") {
+        console.log("You lose! Rock beats Scissors.")
+        return -1;
+    }
+    if (humanSelection == "scissors" && computerSelection == "paper") {
+        console.log("You win! Scissors beats Paper.")
+        return 1;
+    }
+    if (humanSelection == "scissors" && computerSelection == "scissors") {
+        console.log("You tied! Scissors ties Scissors.")
+        return 0;
+    }
 }
 
 function playGame() {
-    /*
-    Move your playRound function and score variables so that they’re declared inside of the new playGame function
-
-    Play 5 rounds by calling playRound 5 times.
-
-    Hint: When you assign a function call to a variable, the return value
-    of that function is assigned to the variable. Accessing the variable
-    afterward will only provide the assigned value; it doesn’t recall the function.
-    You need to recall the choice functions to get new choices for each round.
-
-    Re-work your previous functions or create more helper functions if necessary.
-    Specifically, you may want to change the return values to something more useful.
-    If you already know about loops, you can use them. If not, don’t worry! Loops will be covered in the next lesson.
-    */
     let humanScore = 0;
     let computerScore = 0;
+    let result;
     for (let i = 0; i < 5; i++) {
         const humanSelection = getHumanChoice();
         const computerSelection = getComputerChoice();
 
-        playRound(humanSelection, computerSelection);
+        result = playRound(humanSelection, computerSelection);
+        if (result == -1) {
+            computerScore++;
+        }
+        if (result == 1) {
+            humanScore++;
+        }
+
+        console.log("Your score: " + humanScore);
+        console.log("Computer score: " + computerScore);
+        console.log("<-------->")
+        console.log("<-------->")
+        console.log("<-------->")
     }
 }
+
+playGame();
