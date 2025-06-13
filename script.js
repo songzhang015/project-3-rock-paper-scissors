@@ -1,34 +1,20 @@
 
-humanScore = 0;
-computerScore = 0;
-
 function getComputerChoice() {
-    /*
-    Write the code so that getComputerChoice will randomly return one of the following string values:
-    “rock”, “paper” or “scissors”.
-
-    Hint: The Math.random method returns a random number that’s greater than or equal to 0 and less than 1.
-    Think about how you can use this to conditionally return one of the multiple choices.
-
-    Note: Some learners might think that arrays are necessary for this problem, but they aren’t.
-    If you’re unfamiliar with arrays, don’t worry - they’ll be covered later in the curriculum.
-    Test that your function returns what you expect using console.log or the browser developer tools before advancing to the next step.
-    */
-
-
+    // Generates a random choice of "rock", "paper", or "scissors" to be used by the computer.
+    let num = Math.floor(Math.random() * 3);
+    if (num == 0) {
+        return "rock";
+    } else if (num == 1) {
+        return "paper";
+    } else {
+        return "scissors";
+    }
 }
 
 function getHumanChoice() {
-    /*
-    Write the code so that getHumanChoice will return one of the valid choices depending on what the user inputs.
-
-    Hint: Use the prompt method to get the user’s input.
-
-    You do not need to handle reprompting if the user enters an invalid input,
-    as that would require things we will teach later. For now, just assume the user will always enter a valid choice.
-
-    Test what your function returns by using console.log.
-    */
+    // Prompts for the human's input to be returned. Case-insensitive but no checks.
+    let humanChoice = prompt("Input: 'Rock', 'Paper' or 'Scissors'");
+    return humanChoice;
 }
 
 function playRound () {
@@ -48,11 +34,6 @@ function playRound () {
     
 }
 
-const humanSelection = getHumanChoice();
-const computerSelection = getComputerChoice();
-
-playRound(humanSelection, computerSelection);
-
 function playGame() {
     /*
     Move your playRound function and score variables so that they’re declared inside of the new playGame function
@@ -68,4 +49,12 @@ function playGame() {
     Specifically, you may want to change the return values to something more useful.
     If you already know about loops, you can use them. If not, don’t worry! Loops will be covered in the next lesson.
     */
+    let humanScore = 0;
+    let computerScore = 0;
+    for (let i = 0; i < 5; i++) {
+        const humanSelection = getHumanChoice();
+        const computerSelection = getComputerChoice();
+
+        playRound(humanSelection, computerSelection);
+    }
 }
