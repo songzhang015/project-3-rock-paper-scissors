@@ -1,1 +1,2 @@
-# project-3-rock-paper-scissors
+# Odin Project - Project 3:
+Rock Paper Scissors application using Javascript
