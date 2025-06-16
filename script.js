@@ -11,62 +11,64 @@ function getComputerChoice() {
     }
 }
 
-function getHumanChoice() {
-    // Prompts for the human's input to be returned. Case-insensitive but no checks.
-    let humanSelection = prompt("Input: 'Rock', 'Paper' or 'Scissors'");
-    return humanSelection.toLowerCase();
-}
-
 function playRound (humanSelection, computerSelection) {
+    // Iterates over a round and modifying the text field from HTML
+    const text = document.querySelector("#text");
     if (humanSelection == "rock" && computerSelection == "rock") {
-        console.log("You tied! Rock ties Rock.")
+        text.textContent = "You tied! Rock ties Rock."
         return 0;
     }
     if (humanSelection == "rock" && computerSelection == "paper") {
-        console.log("You lose! Paper beats Rock.")
+        text.textContent = "You lose! Paper beats Rock."
         return -1;
     }
     if (humanSelection == "rock" && computerSelection == "scissors") {
-        console.log("You win! Rock beats Scissors.")
+        text.textContent = "You win! Rock beats Scissors."
         return 1;
     }
 
     if (humanSelection == "paper" && computerSelection == "rock") {
-        console.log("You win! Paper beats Rock.")
+        text.textContent = "You win! Paper beats Rock."
         return 1;
     }
     if (humanSelection == "paper" && computerSelection == "paper") {
-        console.log("You tied! Paper ties Paper.")
+        text.textContent = "You tied! Paper ties Paper."
         return 0;
     }
     if (humanSelection == "paper" && computerSelection == "scissors") {
-        console.log("You lose! Scissors beats Paper.")
+        text.textContent = "You lose! Scissors beats Paper."
         return -1;
     }
 
     if (humanSelection == "scissors" && computerSelection == "rock") {
-        console.log("You lose! Rock beats Scissors.")
+        text.textContent = "You lose! Rock beats Scissors."
         return -1;
     }
     if (humanSelection == "scissors" && computerSelection == "paper") {
-        console.log("You win! Scissors beats Paper.")
+        text.textContent = "You win! Scissors beats Paper."
         return 1;
     }
     if (humanSelection == "scissors" && computerSelection == "scissors") {
-        console.log("You tied! Scissors ties Scissors.")
+        text.textContent = "You tied! Scissors ties Scissors."
         return 0;
     }
 }
 
-function playGame() {
+document.addEventListener("DOMContentLoaded", () => {
+    // Once website loads, initialize variables and adds listeners to buttons
+    // When selection is made, modify corresponding text fields from HTML
     let humanScore = 0;
     let computerScore = 0;
     let result;
-    for (let i = 0; i < 5; i++) {
-        const humanSelection = getHumanChoice();
-        const computerSelection = getComputerChoice();
 
-        result = playRound(humanSelection, computerSelection);
+    const rockButton = document.querySelector("#rock");
+    const paperButton = document.querySelector("#paper");
+    const scissorsButton = document.querySelector("#scissors");
+    const humanText = document.querySelector("#human");
+    const computerText = document.querySelector("#computer");
+
+    rockButton.addEventListener("click", () => {
+        result = playRound("rock", getComputerChoice());
         if (result == -1) {
             computerScore++;
         }
@@ -74,12 +76,33 @@ function playGame() {
             humanScore++;
         }
 
-        console.log("Your score: " + humanScore);
-        console.log("Computer score: " + computerScore);
-        console.log("<-------->")
-        console.log("<-------->")
-        console.log("<-------->")
-    }
-}
+        humanText.textContent = ("Your score: " + humanScore);
+        computerText.textContent = ("Computer score: " + computerScore);
+    });
+    
+    paperButton.addEventListener("click", () => {
+        result = playRound("paper", getComputerChoice());
+        if (result == -1) {
+            computerScore++;
+        }
+        if (result == 1) {
+            humanScore++;
+        }
 
-playGame();
+        humanText.textContent = ("Your score: " + humanScore);
+        computerText.textContent = ("Computer score: " + computerScore);
+    });
+
+    scissorsButton.addEventListener("click", () => {
+        result = playRound("scissors", getComputerChoice());
+        if (result == -1) {
+            computerScore++;
+        }
+        if (result == 1) {
+            humanScore++;
+        }
+
+        humanText.textContent = ("Your score: " + humanScore);
+        computerText.textContent = ("Computer score: " + computerScore);
+    });
+});
